@@ -8,9 +8,8 @@ let todoData = [];
 const render = function(){
     todoCompleted.innerHTML = "";
     todoList.innerHTML = "";
-    localStorage.clear("todoData");
     
-    todoData.forEach(function(item){
+    todoData.forEach(function(item,index){
         const li = document.createElement('li');
         li.classList.add("todo-item");
         li.innerHTML = '<span class="text-todo">' + item.text + "</span>" + '<div class="todo-buttons">' + 
@@ -31,7 +30,7 @@ const render = function(){
         });
         li.querySelector(".todo-remove").addEventListener('click', function(){
             item.remove = true;
-            let order = localStorage[todoData];
+            todoData.splice(index, 1);
             render();
         });
         
@@ -42,7 +41,6 @@ const firstTime = function(){
     if(localStorage.key("todoData")){
         todoData = JSON.parse(localStorage.getItem("todoData"));
         render();
-        // localStorage.setItem("newTodo", JSON.stringify(newTodo));
     }
 };
 
