@@ -16,10 +16,10 @@ const render = function(){
         '<button class="todo-remove"></button>' + 
         '<button class="todo-complete"></button>' + '</div>';
 
-        if(item.completed && !item.remove) {
+        if(item.completed) {
             todoCompleted.append(li);
             localStorage.setItem("todoData", JSON.stringify(todoData));
-        } else if(!item.remove){
+        } else {
             todoList.append(li);
             localStorage.setItem("todoData", JSON.stringify(todoData));
         } 
@@ -31,6 +31,9 @@ const render = function(){
         li.querySelector(".todo-remove").addEventListener('click', function(){
             item.remove = true;
             todoData.splice(index, 1);
+            if (index == 0){
+                localStorage.removeItem("todoData");
+            }
             render();
         });
         
